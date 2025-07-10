@@ -1,127 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&display=swap');
-:root {
-  --color_one: #2C2C2C;
-  --color_one_two: #333;
-  --color_two: #522546;
-  --color_three: #88304E;
-  --color_four: #F7374F;
-  --color_five: #FFF;
-
-  --font: "Cascadia Code", sans-serif;
+h3 {
+    margin: 0.5rem 0;
 }
 
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: #111;
-  background-repeat: no-repeat;
-  color: white;
-  font-family: var(--font);
+.flex {
+    display: flex;
 }
 
-.App {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+.shrunk {
+    align-self: start;
 }
 
-.title {
-  color: var(--color_five);
-  font-size: 3rem;
-  text-decoration: underline;
+.fw {
+    flex-wrap: wrap;
 }
 
-/* TICKET -----------------------------------------------------------------------------------------------*/
-
-.ticket_wrapper {
-  width: 30rem;
-  border: 2px solid var(--color_four);
-  border-radius: 1rem;
-  padding: 1rem;
-  background-color: #111;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition-duration: 0.5;
+.col {
+    flex-direction: column;
 }
 
-/* END TICKET -----------------------------------------------------------------------------------------------*/
-
-.custom_text_input {
-  background-color: #111;
-  border: none;
-  color: var(--color_four);
-  width: 100%;
-  margin: 0.1rem;
-  font-family: var(--font);
+.sa {
+    justify-content: space-around;
 }
 
-.choice_wrapper {
-  background-color: #111;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0.1rem;
+.g1 {
+    gap: 1rem;
 }
 
-.choice_title {
-  margin: 0;
-  font-size: 1rem;
+.mb {
+    margin-bottom: 1rem;
 }
 
-.choices_wrapper {
-  display: flex;
-  justify-content: space-evenly;
-  height: 5rem;
-  margin: 0.25rem;
-  width: 100%;
-  gap: 0.25rem;
+.mb-2 {
+    margin-bottom: 0.5rem;
 }
 
-.choice_block {
-  height: 95%;
-  flex: 1;
-  background-color: var(--color_two);
-  color: var(--color_four);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  font-family: var(--font);
-}
-
-.num_blocks_1 {
-  font-size: 3rem;
-}
-
-.num_blocks_2 {
-  font-size: 3rem;
-}
-
-.num_blocks_3 {
-  font-size: 2rem;
-}
-
-.num_blocks_4 {
-  font-size: 1.5rem;
-}
-
-.choice_finish_wrapper {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem
-}
-
-.choice_finish_wrapper input {
-  height: 50%;
-  background-color: var(--color_two);
-  color: var(--color_four);
-  border: none;
-  padding: 0.25rem 0.5rem;
-  font-family: var(--font);
+button.active {
+    box-shadow: inset -1px -1px #ffffff, inset 1px 1px #0a0a0a, inset -2px -2px #dfdfdf, inset 2px 2px #808080;
 }

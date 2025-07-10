@@ -1,0 +1,28 @@
+{
+    "title": "New Subscription Request",
+    "description": "Want a new subscription? This is what we need",
+    "opts": [
+        {
+            "type": "multi_select",
+            "value": {
+                "title": "Dept.",
+                "values": [
+                    "CTO",
+                    "CIO",
+                    "BUS",
+                    "VMO2",
+                    "O2"
+                ]
+            }
+        },
+        {
+            "type": "input",
+            "value": "Full Team Name"
+        },
+        {
+            "type": "input",
+            "value": "Team Abbreviation"
+        }
+    ],
+    "fuck you": "what"
+}

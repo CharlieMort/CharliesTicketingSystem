@@ -1,0 +1,20 @@
+{
+    "title": "Merge Request",
+    "description": "",
+    "opts": [
+        {
+            "type": "input",
+            "value": "MR Link"
+        },
+        {
+            "type": "multi_select",
+            "value": {
+                "title": "MR Type",
+                "values": [
+                    "GEVGO",
+                    "Azure Core-Infra"
+                ]
+            }
+        }
+    ]
+}

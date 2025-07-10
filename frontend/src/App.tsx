@@ -1,13 +1,17 @@
-import React from 'react';
-import './App.css';
-import CreateTicket from './comps/CreateTicket';
+import Ticket from "./comps/Ticket";
+import Window from "./comps/Window";
+import template from "./tickets/merge_request.json"
+import subscription_template from "./tickets/support_request.json"
+import "./app.css"
 
 function App() {
   return (
-    <div className="App">
-      <h1 className="title">Charlie's Ticketing System</h1>
-      <CreateTicket />
-    </div>
+    <Window title_bar_text="Charlie's Ticketing System" width="100%">
+      <div className="flex g1">
+        <Ticket template={template}/>
+        <Ticket template={subscription_template} />
+      </div>
+    </Window> 
   );
 }
 
