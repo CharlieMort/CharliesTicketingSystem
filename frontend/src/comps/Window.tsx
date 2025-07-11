@@ -20,9 +20,13 @@ function Window({title_bar_text, width, close, close_careful, close_override, ma
     const [big, setBig] = useState(startSmall ? false : true)
     const [rm, setRm] = useState(false)
     const [cClose, setCClose] = useState(close_careful?false:true)
-
+    
     if (cClose && rm) {
-        return <></>
+        if (close_override) {
+            close_override()
+        } else {
+            return <></>
+        }
     }
 
     return(
@@ -36,7 +40,7 @@ function Window({title_bar_text, width, close, close_careful, close_override, ma
                         maximize ? <button aria-label={!big ? "Maximize" : "Minimize"} onClick={() => setBig(!big)}></button> : <></>
                     }
                     {
-                        close ? <button aria-label="Close" onClick={close_override ? () => close_override() : () => setRm(true)}></button> : <></>
+                        close ? <button aria-label="Close" onClick={() => setRm(true)}></button> : <></>
                     }
                 </div>
             </div>

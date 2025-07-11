@@ -4,33 +4,26 @@
     "opts": [
         {
             "type": "multi_select",
-            "value": {
-                "title": "Dept.",
-                "values": [
-                    "CTO",
-                    "CIO",
-                    "BUS",
-                    "VMO2",
-                    "O2"
-                ]
-            }
+            "title": "Dept.",
+            "optionss": [
+                "CTO",
+                "CIO",
+                "BUS",
+                "VMO2",
+                "O2"
+            ]
         },
         {
             "type": "input",
-            "value": "Full Team Name"
+            "title": "Full Team Name"
         },
         {
-            "type": "row_opts",
-            "value": [
-                {
-                    "type": "input",
-                    "value": "Team Abbreviation"
-                },
-                {
-                    "type": "input",
-                    "value": "Billing Code"
-                }
-            ]
+            "type": "input",
+            "value": "Team Abbreviation"
+        },
+        {
+            "type": "input",
+            "value": "Billing Code"
         },
         {
             "type": "input",

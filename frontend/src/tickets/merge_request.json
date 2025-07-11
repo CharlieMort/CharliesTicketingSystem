@@ -4,17 +4,15 @@
     "opts": [
         {
             "type": "input",
-            "value": "MR Link"
+            "title": "MR Link"
         },
         {
             "type": "multi_select",
-            "value": {
-                "title": "MR Type",
-                "values": [
-                    "GEVGO",
-                    "Azure Core-Infra"
-                ]
-            }
+            "title": "MR Type",
+            "options": [
+                "GEVGO",
+                "Azure Core-Infra"
+            ]
         }
     ]
 }

@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Window from "./Window";
 import Options from "./Options";
 
 export interface ITicketOpt {
     type: string
-    value: any
+    title: string
+    options?: string[]
+    value?: string
 }
 
 interface ITicketTemplate {
@@ -14,21 +16,28 @@ interface ITicketTemplate {
 }
 
 interface IProps {
-    template: ITicketTemplate
+    ticket: ITicketTemplate
+    closeHandler?: () => void
+    editHandler?: () => void
 }
 
-function Ticket({template, compress}: IProps) {
-    return <Window title_bar_text={`Create Ticket - ${template.title}`} width="33%" maximize close close_careful={{header:"Close Ticket?", msg: "Are you sure ?"}}>
-        <h3>{template.title}</h3>
+function Ticket({ticket, closeHandler, editHandler}: IProps) {
+    return <Window title_bar_text={`${ticket.title}`} width="31.5%" maximize close close_careful={{header:"Close Ticket?", msg: "Are you sure ?"}} close_override={closeHandler}>
+        <h3>{ticket.title}</h3>
         {
-            template.description
-            ? <p>{template.description}</p>
+            ticket.description
+            ? <p>{ticket.description}</p>
             : <></>
         }
-        <Options opts={template.opts} />
-        <button onClick={() => console.log("click")}>Submit</button>
-        <input type="reset" />
-        
+        {
+            ticket.opts.map((opt) => {
+                return <div className={`flex col mb-2`}>
+                    <div><b>{opt.title}</b></div>
+                    <div>{opt.value}</div>
+                </div>
+            })
+        }
+        <button onClick={editHandler}>Edit</button>
     </Window>
 }
 

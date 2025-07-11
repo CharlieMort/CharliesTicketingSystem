@@ -1,6 +1,6 @@
 import MultiSelect from "./MultiSelect"
 import TextInput from "./TextInput"
-import type { ITicketOpt } from "./Ticket"
+import type { ITicketOpt } from "./CreateTicket"
 
 interface IProps {
     opts: ITicketOpt[]
@@ -16,8 +16,6 @@ function Options({opts, classNames}: IProps) {
                         return <TextInput opt={opt} />
                     case "multi_select":
                         return <MultiSelect opt={opt} />
-                    case "row_opts":
-                        return <Options opts={opt.value} classNames="flex sa" />
                 }
             })
         }
