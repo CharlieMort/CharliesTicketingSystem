@@ -17,9 +17,7 @@ interface IProps {
     template: ITicketTemplate
 }
 
-function Ticket({template}: IProps) {
-    const [maxi, setMaxi] = useState(true)
-
+function Ticket({template, compress}: IProps) {
     return <Window title_bar_text={`Create Ticket - ${template.title}`} width="33%" maximize close close_careful={{header:"Close Ticket?", msg: "Are you sure ?"}}>
         <h3>{template.title}</h3>
         {

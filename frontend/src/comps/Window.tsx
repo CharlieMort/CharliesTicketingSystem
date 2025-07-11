@@ -33,7 +33,7 @@ function Window({title_bar_text, width, close, close_careful, close_override, ma
                 <div className="title-bar-text">{title_bar_text}</div>
                 <div className="title-bar-controls">
                     {
-                        maximize ? <button aria-label={big ? "Minimize" : "Maximize"} onClick={() => setBig(!big)}></button> : <></>
+                        maximize ? <button aria-label={!big ? "Maximize" : "Minimize"} onClick={() => setBig(!big)}></button> : <></>
                     }
                     {
                         close ? <button aria-label="Close" onClick={close_override ? () => close_override() : () => setRm(true)}></button> : <></>
