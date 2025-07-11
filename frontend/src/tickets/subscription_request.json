@@ -20,8 +20,29 @@
             "value": "Full Team Name"
         },
         {
+            "type": "row_opts",
+            "value": [
+                {
+                    "type": "input",
+                    "value": "Team Abbreviation"
+                },
+                {
+                    "type": "input",
+                    "value": "Billing Code"
+                }
+            ]
+        },
+        {
             "type": "input",
-            "value": "Team Abbreviation"
+            "value": "Primary Contact"
+        },
+        {
+            "type": "input",
+            "value": "Operations Team Contact"
+        },
+        {
+            "type": "checkbox",
+            "value": "Networking"
         }
     ],
     "fuck you": "what"

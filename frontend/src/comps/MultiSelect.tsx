@@ -1,8 +1,8 @@
 import { useState } from "react"
-import type { TicketOptType } from "./Ticket"
+import type { ITicketOpt } from "./Ticket"
 
 interface IProps {
-    opt: TicketOptType
+    opt: ITicketOpt
 }
 
 function MultiSelect({opt}: IProps) {

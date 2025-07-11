@@ -1,9 +1,8 @@
 import { useState } from "react";
-import MultiSelect from "./MultiSelect";
 import Window from "./Window";
-import TextInput from "./TextInput";
+import Options from "./Options";
 
-export type TicketOptType = {
+export interface ITicketOpt {
     type: string
     value: any
 }
@@ -11,7 +10,7 @@ export type TicketOptType = {
 interface ITicketTemplate {
     title: string
     description?: string
-    opts: TicketOptType[]
+    opts: ITicketOpt[]
 }
 
 interface IProps {
@@ -21,27 +20,17 @@ interface IProps {
 function Ticket({template}: IProps) {
     const [maxi, setMaxi] = useState(true)
 
-    return <Window title_bar_text={`Create Ticket - ${template.title}`} width="33%" maximize close>
+    return <Window title_bar_text={`Create Ticket - ${template.title}`} width="33%" maximize close close_careful={{header:"Close Ticket?", msg: "Are you sure ?"}}>
         <h3>{template.title}</h3>
         {
             template.description
             ? <p>{template.description}</p>
             : <></>
         }
-        <div className="mb">
-            {
-                template.opts.map((opt) => {
-                    switch(opt.type) {
-                        case "input":
-                            return <TextInput opt={opt} />
-                        case "multi_select":
-                            return <MultiSelect opt={opt} />
-                    }
-                })
-            }
-        </div>
+        <Options opts={template.opts} />
         <button onClick={() => console.log("click")}>Submit</button>
         <input type="reset" />
+        
     </Window>
 }
 
