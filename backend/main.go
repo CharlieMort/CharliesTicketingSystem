@@ -113,7 +113,7 @@ func main() {
 	router.PUT("/api/tickets/update/:id", updateTicket)
 	router.DELETE("/api/tickets/delete/:id", deleteTicket)
 	router.Static("/page/", "../frontend/build")
-	router.Run("localhost:8080")
+	router.Run(":8080")
 
 	//fmt.Println(GetRecordByProperty("tickets", "title", "cum"))
 	// m := gomail.NewMessage()
