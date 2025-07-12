@@ -8,7 +8,7 @@ interface IValidation {
     minLength?: number
     pattern?: string
     optional?: boolean
-    error_msg: string
+    errorMsg: string
 }
 export interface ITicketOpt {
     type: string

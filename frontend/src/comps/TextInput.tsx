@@ -8,7 +8,7 @@ function TextInput({opt}: IProps) {
     console.log(opt.validation?.pattern?.replaceAll("&BS", "\\"))
     return <div className={`flex col mb-2 ${opt.options?.includes("short") ? "whalf": "wfull"}`}>
         <label htmlFor={opt.title}>{opt.title}</label>
-        <label htmlFor={opt.title} className="error_msg">{opt.validation?.error_msg}</label>
+        <label htmlFor={opt.title} className="error_msg">{opt.validation?.errorMsg}</label>
         <input 
             id={opt.title} 
             type="text" 

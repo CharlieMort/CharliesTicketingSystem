@@ -1,13 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CreateTicket, { type ITicketOpt } from "../comps/CreateTicket";
 import Ticket from "../comps/Ticket";
 import Window from "../comps/Window";
-import merge_request from "../tickets/merge_request.json"
-import subscription_request from "../tickets/subscription_request.json"
-const TEMPLATES : any[string] = {
-    "merge_request": merge_request,
-    "subscription_request": subscription_request
-}
 
 export interface ITicketTemplate {
     title: string
@@ -19,8 +13,20 @@ export interface ITicketTemplate {
 
 function ManageTickets() {
     const [selectedTicketType, setSelectedTicketType] = useState("merge_request")
-    
+    const [templates, setTemplates] = useState<ITicketTemplate[]>([])
     const [tickets, setTickets] = useState<ITicketTemplate[]>([])
+
+    useEffect(() => {
+        fetch("http://localhost:8080/api/tickets/templates", {
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
+          }).then((data) => {
+            data.json().then((jason) => {
+                console.log(jason)
+                setTemplates(jason)
+            })
+          });
+    }, [])
 
     function DeleteTicket(ticketID: string) {
         console.log(ticketID)
@@ -57,16 +63,26 @@ function ManageTickets() {
     }
 
     function NewTicket() {
-        let newTicket = JSON.parse(JSON.stringify(TEMPLATES[selectedTicketType]))
+        let template;
+        templates.map((x) => {
+            if (x.title == selectedTicketType) {
+                template = x
+            }
+        })
+
+        let newTicket = JSON.parse(JSON.stringify(template))
         newTicket.id = self.crypto.randomUUID()
-        newTicket.submitted =
+        newTicket.submitted = false
         setTickets([...tickets, newTicket])
     }
 
     return <Window title_bar_text="Manage Tickets" width="100%" maximize>
         <select onChange={(e) => setSelectedTicketType(e.target.value)} value={selectedTicketType}>
-            <option value="subscription_request">New Subscription</option>
-            <option value="merge_request">Merge Request</option>
+            {
+                templates.map((template) => {
+                    return <option value={template.title}>{template.title}</option>
+                })
+            }
         </select>
         <button onClick={NewTicket}>New Ticket</button>
         <div className="grid col-3 g1s">

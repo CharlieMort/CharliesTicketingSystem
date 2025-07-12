@@ -18,7 +18,7 @@ func RecordToString(record bson.M) string {
 	return string(jsonData)
 }
 
-func GetRecordByProp(collName string, prop string, value string) bson.M {
+func GetRecordByProperty(collName string, prop string, value string) bson.M {
 	client, err := mongo.Connect(options.Client().ApplyURI(db_uri))
 	if err != nil {
 		panic(err)
@@ -41,4 +41,26 @@ func GetRecordByProp(collName string, prop string, value string) bson.M {
 	}
 
 	return result
+}
+
+func GetAllRecords(collectionName string) *mongo.Cursor {
+	client, err := mongo.Connect(options.Client().ApplyURI(db_uri))
+	if err != nil {
+		panic(err)
+	}
+	defer func() {
+		if err := client.Disconnect(context.TODO()); err != nil {
+			panic(err)
+		}
+	}()
+	collection := client.Database(db_name).Collection(collectionName)
+	res, err := collection.Find(context.TODO(), bson.D{})
+	if err == mongo.ErrNoDocuments {
+		fmt.Printf("No documents were found in %s/%s\n", db_name, collectionName)
+		return nil
+	}
+	if err != nil {
+		panic(err)
+	}
+	return res
 }
