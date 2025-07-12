@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import Window from "./Window";
 import Options from "./Options";
 import type { ITicketTemplate } from "../main_pages/ManageTickets";

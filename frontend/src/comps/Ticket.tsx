@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import Window from "./Window";
-import Options from "./Options";
 
 export interface ITicketOpt {
     type: string

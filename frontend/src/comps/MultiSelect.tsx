@@ -6,8 +6,6 @@ interface IProps {
 }
 
 function MultiSelect({opt}: IProps) {
-    const [selected, setSelected] = useState("")
-
     // return <div className="mb">
     //     <p style={{textAlign: "center"}}><b>{opt.title}</b></p>
     //     <div className="flex sa fw">
