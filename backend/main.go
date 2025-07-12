@@ -112,7 +112,7 @@ func main() {
 	router.POST("/api/tickets/create", createTicket)
 	router.PUT("/api/tickets/update/:id", updateTicket)
 	router.DELETE("/api/tickets/delete/:id", deleteTicket)
-	router.Static("/", "../frontend/build")
+	router.Static("/page/", "../frontend/build")
 	router.Run("localhost:8080")
 
 	//fmt.Println(GetRecordByProperty("tickets", "title", "cum"))
