@@ -63,6 +63,14 @@ func updateTicket(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, result)
 }
 
+func deleteTicket(c *gin.Context) {
+	id := c.Param("id")
+
+	result := DeleteRecordInCollection("tickets", id)
+	fmt.Println(result)
+	c.IndentedJSON(http.StatusOK, result)
+}
+
 func main() {
 	fmt.Println("Hello Ticket_API")
 	err := godotenv.Load(fmt.Sprintf(".env.%s", ENV))
@@ -94,6 +102,7 @@ func main() {
 	router.GET("/api/tickets/templates", getAllTicketTemplates)
 	router.POST("/api/tickets/create", createTicket)
 	router.PUT("/api/tickets/update/:id", updateTicket)
+	router.DELETE("/api/tickets/delete/:id", deleteTicket)
 
 	router.Run("localhost:8080")
 
@@ -142,7 +151,7 @@ func corsMiddleware() gin.HandlerFunc {
 			c.Writer.Header().Set("Access-Control-Allow-Origin", origin)
 			c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
 			c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
-			c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT")
+			c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE")
 		}
 
 		// Handle preflight OPTIONS requests by aborting with status 204

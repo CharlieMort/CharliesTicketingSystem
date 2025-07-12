@@ -16,11 +16,11 @@ function ManageTickets() {
     const [templates, setTemplates] = useState<ITicketTemplate[]>([])
     const [tickets, setTickets] = useState<ITicketTemplate[]>([])
 
-    useEffect(() => {
+    function RefreshTickets() {
         fetch("http://localhost:8080/api/tickets/templates", {
-                method: "GET",
-                headers: { "Content-Type": "application/json" }
-            }).then((data) => {
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
+        }).then((data) => {
             data.json().then((jason) => {
                 // console.log(jason)
                 setTemplates(jason)
@@ -28,9 +28,9 @@ function ManageTickets() {
         });
         
         fetch("http://localhost:8080/api/tickets/", {
-                method: "GET",
-                headers: { "Content-Type": "application/json" }
-            }).then((data) => {
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
+        }).then((data) => {
             data.json().then((jason) => {
                 console.log(jason)
                 let newTickets = jason.map((ticket: ITicketTemplate) => {
@@ -41,10 +41,21 @@ function ManageTickets() {
                 setTickets(newTickets)
             })
         });
+    }
+
+    useEffect(() => {
+        RefreshTickets()
     }, [])
 
     function DeleteTicket(ticketID: string) {
-        console.log(ticketID)
+        fetch(`http://localhost:8080/api/tickets/delete/${ticketID}`, {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+          }).then((data) => {
+            data.json().then((jason) => {
+                console.log(jason)
+            })
+          });
         
         let newTickets : ITicketTemplate[] = []
         tickets.map((tick) => {
@@ -123,6 +134,7 @@ function ManageTickets() {
             }
         </select>
         <button onClick={NewTicket}>New Ticket</button>
+        <button onClick={() => RefreshTickets()}>Refresh</button>
         <div className="grid col-3 g1s">
             {
                 tickets.map((tick) => {
