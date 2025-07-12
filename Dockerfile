@@ -24,4 +24,5 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o /charlie_ticketing_system
 
 FROM cgr.dev/chainguard/static
 COPY --from=go-build-stage /app/backend /usr/bin/
+EXPOSE 8080
 ENTRYPOINT ["/usr/bin/charlie_ticketing_system"]
