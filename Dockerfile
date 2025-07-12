@@ -20,7 +20,7 @@ WORKDIR /app/backend
 
 RUN go mod download
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o /charlie_ticketing_system
+RUN CGO_ENABLED=0 GOOS=linux go build -o charlie_ticketing_system .
 
 FROM cgr.dev/chainguard/static
 COPY --from=go-build-stage /app/backend /usr/bin/
