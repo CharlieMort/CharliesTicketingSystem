@@ -69,7 +69,7 @@ function ManageTickets() {
             <option value="merge_request">Merge Request</option>
         </select>
         <button onClick={NewTicket}>New Ticket</button>
-        <div className="flex g1 fw">
+        <div className="grid col-3 g1s">
             {
                 tickets.map((tick) => {
                     if (tick.submitted) {

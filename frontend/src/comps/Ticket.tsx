@@ -22,7 +22,7 @@ interface IProps {
 }
 
 function Ticket({ticket, closeHandler, editHandler}: IProps) {
-    return <Window title_bar_text={`${ticket.title}`} width="31.5%" maximize close close_careful={{header:"Close Ticket?", msg: "Are you sure ?"}} close_override={closeHandler}>
+    return <Window title_bar_text={`${ticket.title}`} width="100%" maximize close close_careful={{header:"Close Ticket?", msg: "Are you sure ?"}} close_override={closeHandler}>
         <h3>{ticket.title}</h3>
         {
             ticket.description

@@ -40,7 +40,10 @@ function Window({title_bar_text, width, close, close_careful, close_override, ma
                         maximize ? <button aria-label={!big ? "Maximize" : "Minimize"} onClick={() => setBig(!big)}></button> : <></>
                     }
                     {
-                        close ? <button aria-label="Close" onClick={() => setRm(true)}></button> : <></>
+                        close ? <button aria-label="Close" onClick={() => {
+                            setBig(true)
+                            setRm(true)
+                        }}></button> : <></>
                     }
                 </div>
             </div>

@@ -19,23 +19,40 @@
         },
         {
             "type": "input",
-            "value": "Team Abbreviation"
+            "title": "Team Abbreviation",
+            "validation": {
+                "maxLength": 5
+            },
+            "options": [
+                "short"
+            ]
         },
         {
             "type": "input",
-            "value": "Billing Code"
+            "title": "Billing Code",
+            "validation": {
+                "maxLength": 5
+            },
+            "options": [
+                "short"
+            ]
         },
         {
             "type": "input",
-            "value": "Primary Contact"
+            "validation": {
+                "pattern": ".+@.+&BS..+",
+                "error_msg": "Contact must be a valid email address"
+            },
+            "title": "Primary Contact Email"
         },
         {
             "type": "input",
-            "value": "Operations Team Contact"
+            "title": "Operations Team Contact"
         },
         {
             "type": "checkbox",
-            "value": "Networking"
+            "title": "Networking",
+            "default": "off"
         }
     ],
     "fuck you": "what"

@@ -3,11 +3,20 @@ import Window from "./Window";
 import Options from "./Options";
 import type { ITicketTemplate } from "../main_pages/ManageTickets";
 
+interface IValidation {
+    maxLength?: number
+    minLength?: number
+    pattern?: string
+    optional?: boolean
+    error_msg: string
+}
 export interface ITicketOpt {
     type: string
     title: string
     options?: string[]
+    validation?: IValidation
     value?: string
+    default?: string
 }
 
 interface IProps {
@@ -19,17 +28,20 @@ interface IProps {
 function CreateTicket({template, closeHandler, addTicket}: IProps) {
     function onSubmit(formData: FormData) {
         let form = Object.fromEntries(formData.entries())
-        let newTicketStruct = {...template}
+        console.log(form)
+        let newTicketStruct = JSON.parse(JSON.stringify(template))
         for (let opt of newTicketStruct.opts) {
             if (Object.hasOwn(form, opt.title)) {
                 opt.value = form[opt.title].toString()
+            } else {
+                opt.value = opt.default
             }
         }
         console.log(newTicketStruct)
         addTicket(newTicketStruct)
     }
 
-    return <Window title_bar_text={`Create Ticket - ${template.title}`} width="31.5%" maximize close close_careful={{header:"Close Ticket?", msg: "Are you sure ?"}} close_override={closeHandler}>
+    return <Window title_bar_text={`Create Ticket - ${template.title}`} width="100%" maximize close close_careful={{header:"Close Ticket?", msg: "Are you sure ?"}} close_override={closeHandler}>
         <h3>{template.title}</h3>
         {
             template.description
@@ -38,6 +50,7 @@ function CreateTicket({template, closeHandler, addTicket}: IProps) {
         }
         <form action={onSubmit}>
             <Options opts={template.opts} />
+            <hr></hr>
             <input type="submit" />
             <input type="reset" />
         </form>

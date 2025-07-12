@@ -21,13 +21,16 @@ function MultiSelect({opt}: IProps) {
     //         }
     //     </div>
     // </div>
+    if (!opt.options) return <></>
+
     return <fieldset>
         <div className="field-row">{`Select ${opt.title}:`}</div>
         {
-            opt.options?.map((x: string) => {
+            opt.options.map((x: string) => {
+                let uuid = self.crypto.randomUUID()
                 return <div className="field-row">
-                    <input id={x} type="radio" name={opt.title} value={x} defaultChecked={opt.value==x} />
-                    <label htmlFor={x}>{x}</label>
+                    <input id={uuid} type="radio" name={opt.title} value={x} defaultChecked={opt.value==x} required/>
+                    <label htmlFor={uuid}>{x}</label>
                 </div>
             })
         }
