@@ -81,7 +81,7 @@ func main() {
 	for _, e := range entries {
 		fmt.Println(e.Name())
 	}
-	err := godotenv.Load(fmt.Sprintf("./.env.%s", ENV))
+	err = godotenv.Load(fmt.Sprintf("./.env.%s", ENV))
 	if err != nil {
 		log.Fatal("Could Not Load .env file for env:", ENV)
 	}
