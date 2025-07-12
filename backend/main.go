@@ -73,7 +73,7 @@ func deleteTicket(c *gin.Context) {
 
 func main() {
 	fmt.Println("Hello Ticket_API")
-	entries, err := os.ReadDir("./")
+	entries, err := os.ReadDir("/usr/bin/")
 	if err != nil {
 		log.Fatal(err)
 	}
