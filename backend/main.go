@@ -98,6 +98,8 @@ func main() {
 
 	router := gin.Default()
 	router.Use(corsMiddleware())
+	router.Static("/", "../frontend/build")
+
 	router.GET("/api/tickets/", getAllTickets)
 	router.GET("/api/tickets/templates", getAllTicketTemplates)
 	router.POST("/api/tickets/create", createTicket)
