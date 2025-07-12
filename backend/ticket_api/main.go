@@ -27,7 +27,28 @@ func getAllTicketTemplates(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, templates)
 }
 
-func CreateTicket() {
+func getAllTickets(c *gin.Context) {
+	records := GetAllRecords("tickets")
+	var tickets []Ticket
+	if err := records.All(context.TODO(), &tickets); err != nil {
+		panic(err)
+	}
+	fmt.Println(tickets)
+	c.IndentedJSON(http.StatusOK, tickets)
+}
+
+func createTicket(c *gin.Context) {
+	var newTicket Ticket
+	if err := c.BindJSON(&newTicket); err != nil {
+		return
+	}
+
+	result := AddRecordToCollection("tickets", newTicket)
+
+	c.IndentedJSON(http.StatusCreated, result)
+}
+
+func updateTicket(c *gin.Context) {
 
 }
 
@@ -48,7 +69,10 @@ func main() {
 
 	router := gin.Default()
 	router.Use(corsMiddleware())
+	router.GET("/api/tickets/", getAllTickets)
 	router.GET("/api/tickets/templates", getAllTicketTemplates)
+	router.POST("/api/tickets/create", createTicket)
+	router.PATCH("/api/tickets/update:id", updateTicket)
 
 	router.Run("localhost:8080")
 

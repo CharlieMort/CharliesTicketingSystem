@@ -18,14 +18,29 @@ function ManageTickets() {
 
     useEffect(() => {
         fetch("http://localhost:8080/api/tickets/templates", {
-            method: "GET",
-            headers: { "Content-Type": "application/json" }
-          }).then((data) => {
+                method: "GET",
+                headers: { "Content-Type": "application/json" }
+            }).then((data) => {
             data.json().then((jason) => {
-                console.log(jason)
+                // console.log(jason)
                 setTemplates(jason)
             })
-          });
+        });
+        
+        fetch("http://localhost:8080/api/tickets/", {
+                method: "GET",
+                headers: { "Content-Type": "application/json" }
+            }).then((data) => {
+            data.json().then((jason) => {
+                console.log(jason)
+                let newTickets = jason.map((ticket: ITicketTemplate) => {
+                    ticket.submitted = true
+                    return ticket
+                })
+                console.log(newTickets)
+                setTickets(newTickets)
+            })
+        });
     }, [])
 
     function DeleteTicket(ticketID: string) {
@@ -37,11 +52,21 @@ function ManageTickets() {
                 newTickets.push(tick)
             }
         })
-
+        console.log(newTickets)
         setTickets(newTickets)
     }
 
     function UpdateTicket(newTicket: ITicketTemplate) {
+        fetch("http://localhost:8080/api/tickets/create", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newTicket)
+          }).then((data) => {
+            data.json().then((jason) => {
+                console.log(jason)
+            })
+          });
+
         let newTickets = [...tickets]
         for (let i = 0; i<newTickets.length; i++) {
             if (newTickets[i].id === newTicket.id) {
@@ -49,6 +74,7 @@ function ManageTickets() {
                 newTickets[i].submitted = true
             }
         }
+        
         setTickets(newTickets)
     }
 

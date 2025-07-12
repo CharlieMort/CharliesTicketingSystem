@@ -64,3 +64,23 @@ func GetAllRecords(collectionName string) *mongo.Cursor {
 	}
 	return res
 }
+
+func AddRecordToCollection(collectionName string, record interface{}) *mongo.InsertOneResult {
+	client, err := mongo.Connect(options.Client().ApplyURI(db_uri))
+	if err != nil {
+		panic(err)
+	}
+	defer func() {
+		if err := client.Disconnect(context.TODO()); err != nil {
+			panic(err)
+		}
+	}()
+	collection := client.Database(db_name).Collection(collectionName)
+
+	result, err := collection.InsertOne(context.TODO(), record)
+	if err != nil {
+		panic(err)
+	}
+
+	return result
+}
