@@ -84,3 +84,24 @@ func AddRecordToCollection(collectionName string, record interface{}) *mongo.Ins
 
 	return result
 }
+
+func ReplaceRecordInCollection(collectionName string, recordID string, newRecord interface{}) *mongo.UpdateResult {
+	client, err := mongo.Connect(options.Client().ApplyURI(db_uri))
+	if err != nil {
+		panic(err)
+	}
+	defer func() {
+		if err := client.Disconnect(context.TODO()); err != nil {
+			panic(err)
+		}
+	}()
+	collection := client.Database(db_name).Collection(collectionName)
+
+	result, err := collection.ReplaceOne(context.TODO(), bson.D{{"id", recordID}}, newRecord)
+
+	if err != nil {
+		panic(err)
+	}
+
+	return result
+}

@@ -8,7 +8,7 @@ export interface ITicketTemplate {
     description?: string
     id?: string
     opts: ITicketOpt[]
-    submitted?: boolean
+    submitted?: string
 }
 
 function ManageTickets() {
@@ -34,7 +34,7 @@ function ManageTickets() {
             data.json().then((jason) => {
                 console.log(jason)
                 let newTickets = jason.map((ticket: ITicketTemplate) => {
-                    ticket.submitted = true
+                    ticket.submitted = "submitted"
                     return ticket
                 })
                 console.log(newTickets)
@@ -57,21 +57,33 @@ function ManageTickets() {
     }
 
     function UpdateTicket(newTicket: ITicketTemplate) {
-        fetch("http://localhost:8080/api/tickets/create", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(newTicket)
-          }).then((data) => {
-            data.json().then((jason) => {
-                console.log(jason)
-            })
-          });
+        if (newTicket.submitted == "editing") {
+            fetch(`http://localhost:8080/api/tickets/update/${newTicket.id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newTicket)
+              }).then((data) => {
+                data.json().then((jason) => {
+                    console.log(jason)
+                })
+              });
+        } else {
+            fetch("http://localhost:8080/api/tickets/create", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newTicket)
+              }).then((data) => {
+                data.json().then((jason) => {
+                    console.log(jason)
+                })
+              });
+        }
 
         let newTickets = [...tickets]
         for (let i = 0; i<newTickets.length; i++) {
             if (newTickets[i].id === newTicket.id) {
                 newTickets[i] = {...newTicket}
-                newTickets[i].submitted = true
+                newTickets[i].submitted = "submitted"
             }
         }
         
@@ -82,7 +94,7 @@ function ManageTickets() {
         let newTickets = [...tickets]
         for (let i = 0; i<newTickets.length; i++) {
             if (newTickets[i].id === ticketID) {
-                newTickets[i].submitted = false
+                newTickets[i].submitted = "editing"
             }
         }
         setTickets(newTickets)
@@ -114,7 +126,7 @@ function ManageTickets() {
         <div className="grid col-3 g1s">
             {
                 tickets.map((tick) => {
-                    if (tick.submitted) {
+                    if (tick.submitted == "submitted") {
                         return <Ticket key={tick.id} ticket={tick} closeHandler={() => DeleteTicket(tick.id?tick.id:"")} editHandler={() => EditTicket(tick.id?tick.id:"")}/>
                     } else {
                         return <CreateTicket key={tick.id} addTicket={UpdateTicket} template={tick} closeHandler={() => DeleteTicket(tick.id?tick.id:"")}/>

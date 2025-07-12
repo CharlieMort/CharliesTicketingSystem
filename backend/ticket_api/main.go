@@ -10,6 +10,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	"go.mongodb.org/mongo-driver/v2/mongo"
+	"go.mongodb.org/mongo-driver/v2/mongo/options"
 )
 
 const ENV string = "local"
@@ -49,7 +51,16 @@ func createTicket(c *gin.Context) {
 }
 
 func updateTicket(c *gin.Context) {
+	id := c.Param("id")
 
+	var newTicket Ticket
+	if err := c.BindJSON(&newTicket); err != nil {
+		return
+	}
+
+	result := ReplaceRecordInCollection("tickets", id, newTicket)
+
+	c.IndentedJSON(http.StatusOK, result)
 }
 
 func main() {
@@ -67,12 +78,22 @@ func main() {
 		log.Fatal("DATABASE_NAME not set")
 	}
 
+	client, err := mongo.Connect(options.Client().ApplyURI(db_uri))
+	if err != nil {
+		panic(err)
+	}
+	defer func() {
+		if err := client.Disconnect(context.TODO()); err != nil {
+			panic(err)
+		}
+	}()
+
 	router := gin.Default()
 	router.Use(corsMiddleware())
 	router.GET("/api/tickets/", getAllTickets)
 	router.GET("/api/tickets/templates", getAllTicketTemplates)
 	router.POST("/api/tickets/create", createTicket)
-	router.PATCH("/api/tickets/update:id", updateTicket)
+	router.PUT("/api/tickets/update/:id", updateTicket)
 
 	router.Run("localhost:8080")
 
