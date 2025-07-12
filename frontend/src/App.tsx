@@ -1,5 +1,5 @@
 import Window from "./comps/Window";
-import "./app.css"
+import "src/app.css"
 import ManageTickets from "./main_pages/ManageTickets";
 
 function App() {
