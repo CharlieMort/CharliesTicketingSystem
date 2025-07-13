@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/v2/mongo"
@@ -110,6 +111,8 @@ func main() {
 	router := gin.Default()
 	router.Use(cors.Default())
 
+	router.Use(static.Serve("/", static.LocalFile("/usr/bin/dist", true)))
+
 	router.GET("/api/tickets/", getAllTickets)
 	router.POST("/api/tickets/templates/create", createTemplate)
 	router.GET("/api/tickets/templates", getAllTicketTemplates)
@@ -117,10 +120,6 @@ func main() {
 	router.PUT("/api/tickets/update/:id", updateTicket)
 	router.DELETE("/api/tickets/delete/:id", deleteTicket)
 
-	router.Static("/page", "/usr/bin/dist")
-	router.GET("/", func(c *gin.Context) {
-		c.Redirect(http.StatusMovedPermanently, "/page")
-	})
 	router.Run("0.0.0.0:8080")
 
 	//fmt.Println(GetRecordByProperty("tickets", "title", "cum"))
