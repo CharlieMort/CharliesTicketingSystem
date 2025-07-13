@@ -73,15 +73,7 @@ func deleteTicket(c *gin.Context) {
 
 func main() {
 	fmt.Println("Hello Ticket_API")
-	entries, err := os.ReadDir("/usr/bin/")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	for _, e := range entries {
-		fmt.Println(e.Name())
-	}
-	err = godotenv.Load(fmt.Sprintf("/usr/bin/.env.%s", ENV))
+	err := godotenv.Load(fmt.Sprintf("./.env.%s", ENV))
 	if err != nil {
 		log.Fatal("Could Not Load .env file for env:", ENV)
 	}

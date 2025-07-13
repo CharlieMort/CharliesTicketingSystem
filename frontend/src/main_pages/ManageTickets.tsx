@@ -3,6 +3,7 @@ import CreateTicket, { type ITicketOpt } from "../comps/CreateTicket";
 import Ticket from "../comps/Ticket";
 import Window from "../comps/Window";
 import {v4 as uuidv4} from "uuid"
+import { ENDPOINT } from "../App";
 
 export interface ITicketTemplate {
     title: string
@@ -18,7 +19,7 @@ function ManageTickets() {
     const [tickets, setTickets] = useState<ITicketTemplate[]>([])
 
     function RefreshTickets() {
-        fetch("http://192.168.0.216:8080/api/tickets/templates", {
+        fetch(`${ENDPOINT}/api/tickets/templates`, {
             method: "GET",
             headers: { "Content-Type": "application/json" }
         }).then((data) => {
@@ -28,7 +29,7 @@ function ManageTickets() {
             })
         });
         
-        fetch("http://192.168.0.216:8080/api/tickets/", {
+        fetch(`${ENDPOINT}/api/tickets/`, {
             method: "GET",
             headers: { "Content-Type": "application/json" }
         }).then((data) => {
@@ -49,7 +50,7 @@ function ManageTickets() {
     }, [])
 
     function DeleteTicket(ticketID: string) {
-        fetch(`http://192.168.0.216:8080/api/tickets/delete/${ticketID}`, {
+        fetch(`${ENDPOINT}/api/tickets/delete/${ticketID}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
           }).then((data) => {
@@ -70,7 +71,7 @@ function ManageTickets() {
 
     function UpdateTicket(newTicket: ITicketTemplate) {
         if (newTicket.submitted == "editing") {
-            fetch(`http://192.168.0.216:8080/api/tickets/update/${newTicket.id}`, {
+            fetch(`${ENDPOINT}/api/tickets/update/${newTicket.id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newTicket)
@@ -80,7 +81,7 @@ function ManageTickets() {
                 })
               });
         } else {
-            fetch("http://192.168.0.216:8080/api/tickets/create", {
+            fetch(`${ENDPOINT}/api/tickets/create`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newTicket)
