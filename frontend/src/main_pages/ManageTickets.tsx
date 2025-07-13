@@ -4,7 +4,6 @@ import Ticket from "../comps/Ticket";
 import Window from "../comps/Window";
 import {v4 as uuidv4} from "uuid"
 import { ENDPOINT } from "../App";
-import TabMenu from "../comps/TabMenu";
 import CreateTemplate from "../comps/CreateTemplate";
 
 export interface ITicketTemplate {
