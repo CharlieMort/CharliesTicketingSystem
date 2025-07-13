@@ -71,6 +71,17 @@ func deleteTicket(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, result)
 }
 
+func createTemplate(c *gin.Context) {
+	var newTemplate Ticket
+	if err := c.BindJSON(&newTemplate); err != nil {
+		return
+	}
+
+	result := AddRecordToCollection("ticket_templates", newTemplate)
+
+	c.IndentedJSON(http.StatusCreated, result)
+}
+
 func main() {
 	fmt.Println("Hello Ticket_API")
 	err := godotenv.Load(fmt.Sprintf("./.env.%s", ENV))
@@ -100,6 +111,7 @@ func main() {
 	router.Use(corsMiddleware())
 
 	router.GET("/api/tickets/", getAllTickets)
+	router.POST("/api/tickets/templates/create", createTemplate)
 	router.GET("/api/tickets/templates", getAllTicketTemplates)
 	router.POST("/api/tickets/create", createTicket)
 	router.PUT("/api/tickets/update/:id", updateTicket)

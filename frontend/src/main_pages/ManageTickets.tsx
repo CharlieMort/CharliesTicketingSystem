@@ -4,6 +4,8 @@ import Ticket from "../comps/Ticket";
 import Window from "../comps/Window";
 import {v4 as uuidv4} from "uuid"
 import { ENDPOINT } from "../App";
+import TabMenu from "../comps/TabMenu";
+import CreateTemplate from "../comps/CreateTemplate";
 
 export interface ITicketTemplate {
     title: string
@@ -18,6 +20,8 @@ function ManageTickets() {
     const [templates, setTemplates] = useState<ITicketTemplate[]>([])
     const [tickets, setTickets] = useState<ITicketTemplate[]>([])
 
+    const [createTemplate, setCreateTemplate] = useState(false)
+
     function RefreshTickets() {
         fetch(`${ENDPOINT}/api/tickets/templates`, {
             method: "GET",
@@ -25,7 +29,7 @@ function ManageTickets() {
         }).then((data) => {
             data.json().then((jason) => {
                 // console.log(jason)
-                setTemplates(jason)
+                setTemplates([...jason])
             })
         });
         
@@ -70,6 +74,17 @@ function ManageTickets() {
     }
 
     function UpdateTicket(newTicket: ITicketTemplate) {
+        if (newTicket.title === "Template") {
+            fetch(`${ENDPOINT}/api/tickets/create`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newTicket)
+              }).then((data) => {
+                data.json().then((jason) => {
+                    console.log(jason)
+                })
+              });
+        }
         if (newTicket.submitted == "editing") {
             fetch(`${ENDPOINT}/api/tickets/update/${newTicket.id}`, {
                 method: "PUT",
@@ -127,6 +142,21 @@ function ManageTickets() {
         setTickets([...tickets, newTicket])
     }
 
+    function PostTemplate(template: ITicketTemplate, title: string) {
+        template.title = title
+        fetch(`${ENDPOINT}/api/tickets/templates/create`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(template)
+          }).then((data) => {
+            data.json().then((jason) => {
+                console.log(jason)
+            })
+          });
+          setCreateTemplate(false)
+          RefreshTickets()
+    }
+
     return <Window title_bar_text="Manage Tickets" width="100%" maximize>
         <select onChange={(e) => setSelectedTicketType(e.target.value)} value={selectedTicketType}>
             {
@@ -137,7 +167,13 @@ function ManageTickets() {
         </select>
         <button onClick={NewTicket}>New Ticket</button>
         <button onClick={() => RefreshTickets()}>Refresh</button>
+        <button onClick={() => setCreateTemplate(true)}>New Template</button>
         <div className="grid col-3 g1s">
+            {
+                createTemplate
+                ? <CreateTemplate PostTemplate={PostTemplate} closeHandler={() => setCreateTemplate(false)}/>
+                : <></>
+            }
             {
                 tickets.map((tick) => {
                     if (tick.submitted == "submitted") {

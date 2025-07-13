@@ -22,7 +22,7 @@ function MultiSelect({opt}: IProps) {
     if (!opt.options) return <></>
 
     return <fieldset>
-        <div className="field-row">{`Select ${opt.title}:`}</div>
+        <legend>{`Select ${opt.title}`}</legend>
         {
             opt.options.map((x: string) => {
                 let uid = uuidv4()
