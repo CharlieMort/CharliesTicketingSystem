@@ -118,6 +118,9 @@ func main() {
 	router.DELETE("/api/tickets/delete/:id", deleteTicket)
 
 	router.Static("/page", "/usr/bin/dist")
+	router.GET("/", func(c *gin.Context) {
+		c.Redirect(http.StatusMovedPermanently, "/page")
+	})
 	router.Run("0.0.0.0:8080")
 
 	//fmt.Println(GetRecordByProperty("tickets", "title", "cum"))
