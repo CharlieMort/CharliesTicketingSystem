@@ -7,10 +7,9 @@ import TabMenu from "./TabMenu"
 interface IProps {
     opts: ITicketOpt[]
     classNames?: string
-    setTemplate?: React.Dispatch<any>
 }
 
-function HandleOption(opt: ITicketOpt, setTemplate: React.Dispatch<any> | undefined = undefined) {
+function HandleOption(opt: ITicketOpt) {
     switch(opt.type) {
         case "input":
             return <TextInput opt={opt} />
@@ -21,12 +20,12 @@ function HandleOption(opt: ITicketOpt, setTemplate: React.Dispatch<any> | undefi
     }
 }
 
-function Options({opts, classNames, setTemplate}: IProps) {    
+function Options({opts, classNames}: IProps) {    
     return <div className={`wfull flex fw sb ${classNames}`}>
         {
             opts.map((opt) => {
                 if (opt.type != "tabs") {
-                    return HandleOption(opt, setTemplate)
+                    return HandleOption(opt)
                 } else if (opt.type === "tabs" && opt.options) {
                     return <TabMenu tabNames={opt.options?opt.options:[]}>
                         {
@@ -39,7 +38,7 @@ function Options({opts, classNames, setTemplate}: IProps) {
                                             if (option.type.startsWith(`${opt.title}/${tabName}/`)) {
                                                 let newOpt = JSON.parse(JSON.stringify(option))
                                                 newOpt.type = newOpt.type.split(`${opt.title}/${tabName}/`)[1]
-                                                return HandleOption(newOpt, setTemplate)
+                                                return HandleOption(newOpt)
                                             }
 
                                             return <></>
