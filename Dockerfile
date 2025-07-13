@@ -10,6 +10,8 @@ RUN npm install
 
 RUN npm run build
 
+RUN mv ./dist/ ../backend/dist
+
 FROM golang:latest AS go-build-stage
 
 WORKDIR /app
