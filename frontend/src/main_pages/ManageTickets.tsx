@@ -17,7 +17,7 @@ function ManageTickets() {
     const [tickets, setTickets] = useState<ITicketTemplate[]>([])
 
     function RefreshTickets() {
-        fetch("http://localhost:8080/api/tickets/templates", {
+        fetch("http://192.168.0.216:8080/api/tickets/templates", {
             method: "GET",
             headers: { "Content-Type": "application/json" }
         }).then((data) => {
@@ -27,7 +27,7 @@ function ManageTickets() {
             })
         });
         
-        fetch("http://localhost:8080/api/tickets/", {
+        fetch("http://192.168.0.216:8080/api/tickets/", {
             method: "GET",
             headers: { "Content-Type": "application/json" }
         }).then((data) => {
@@ -48,7 +48,7 @@ function ManageTickets() {
     }, [])
 
     function DeleteTicket(ticketID: string) {
-        fetch(`http://localhost:8080/api/tickets/delete/${ticketID}`, {
+        fetch(`http://192.168.0.216:8080/api/tickets/delete/${ticketID}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
           }).then((data) => {
@@ -69,7 +69,7 @@ function ManageTickets() {
 
     function UpdateTicket(newTicket: ITicketTemplate) {
         if (newTicket.submitted == "editing") {
-            fetch(`http://localhost:8080/api/tickets/update/${newTicket.id}`, {
+            fetch(`http://192.168.0.216:8080/api/tickets/update/${newTicket.id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newTicket)
@@ -79,7 +79,7 @@ function ManageTickets() {
                 })
               });
         } else {
-            fetch("http://localhost:8080/api/tickets/create", {
+            fetch("http://192.168.0.216:8080/api/tickets/create", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newTicket)

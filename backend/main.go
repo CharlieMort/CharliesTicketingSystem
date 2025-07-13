@@ -133,7 +133,7 @@ func main() {
 
 func corsMiddleware() gin.HandlerFunc {
 	// Define allowed origins as a comma-separated string
-	originsString := "http://localhost:5173"
+	originsString := "http://localhost:5173,http://192.168.0.78"
 	var allowedOrigins []string
 	if originsString != "" {
 		// Split the originsString into individual origins and store them in allowedOrigins slice
