@@ -121,7 +121,7 @@ func main() {
 	router.GET("/", func(c *gin.Context) {
 		c.Redirect(http.StatusMovedPermanently, "/page")
 	})
-	router.Run("0.0.0.0:8080")
+	router.Run("tickets.charliemort.com:8080")
 
 	//fmt.Println(GetRecordByProperty("tickets", "title", "cum"))
 	// m := gomail.NewMessage()
