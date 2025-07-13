@@ -1,3 +1,4 @@
+import { uuid } from "uuidv4"
 import type { ITicketOpt } from "./CreateTicket"
 
 interface IProps {
@@ -24,10 +25,10 @@ function MultiSelect({opt}: IProps) {
         <div className="field-row">{`Select ${opt.title}:`}</div>
         {
             opt.options.map((x: string) => {
-                let uuid = self.crypto.randomUUID()
+                let uid = uuid()
                 return <div className="field-row">
-                    <input id={uuid} type="radio" name={opt.title} value={x} defaultChecked={opt.value==x} required/>
-                    <label htmlFor={uuid}>{x}</label>
+                    <input id={uid} type="radio" name={opt.title} value={x} defaultChecked={opt.value==x} required/>
+                    <label htmlFor={uid}>{x}</label>
                 </div>
             })
         }

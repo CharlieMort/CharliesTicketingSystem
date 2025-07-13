@@ -1,12 +1,13 @@
 import { useState } from "react";
 import type { ITicketOpt } from "./CreateTicket";
+import { uuid } from "uuidv4";
 
 interface IProps {
     opt: ITicketOpt
 }
 
 function CheckBox({opt}: IProps) {
-    const [id, _] = useState(self.crypto.randomUUID())
+    const [id, _] = useState(uuid())
     
     return <div>
         <input type="checkbox" id={id} name={opt.title} defaultChecked={opt.value ?

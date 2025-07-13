@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import CreateTicket, { type ITicketOpt } from "../comps/CreateTicket";
 import Ticket from "../comps/Ticket";
 import Window from "../comps/Window";
+import { uuid } from "uuidv4";
 
 export interface ITicketTemplate {
     title: string
@@ -120,7 +121,7 @@ function ManageTickets() {
         })
 
         let newTicket = JSON.parse(JSON.stringify(template))
-        newTicket.id = self.crypto.randomUUID()
+        newTicket.id = uuid()
         newTicket.submitted = false
         setTickets([...tickets, newTicket])
     }
