@@ -84,7 +84,7 @@ func createTemplate(c *gin.Context) {
 
 func main() {
 	fmt.Println("Hello Ticket_API")
-	err := godotenv.Load(fmt.Sprintf("/usr/bin/dist/.env.%s", ENV))
+	err := godotenv.Load(fmt.Sprintf("/usr/bin/.env.%s", ENV))
 	if err != nil {
 		log.Fatal("Could Not Load .env file for env:", ENV)
 	}
