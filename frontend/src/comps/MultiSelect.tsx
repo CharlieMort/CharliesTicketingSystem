@@ -1,4 +1,4 @@
-import { uuid } from "uuidv4"
+import {v4 as uuidv4} from "uuid"
 import type { ITicketOpt } from "./CreateTicket"
 
 interface IProps {
@@ -25,7 +25,7 @@ function MultiSelect({opt}: IProps) {
         <div className="field-row">{`Select ${opt.title}:`}</div>
         {
             opt.options.map((x: string) => {
-                let uid = uuid()
+                let uid = uuidv4()
                 return <div className="field-row">
                     <input id={uid} type="radio" name={opt.title} value={x} defaultChecked={opt.value==x} required/>
                     <label htmlFor={uid}>{x}</label>
