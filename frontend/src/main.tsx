@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router'
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
     <Routes>
-      <Route index element={<App />} />
+      <Route path='/page/' element={<App />} />
     </Routes>
   </BrowserRouter>,
 )
